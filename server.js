@@ -26,3 +26,15 @@ app.listen(PORT, () => {
   console.log(`Server is listening on 
 port ${PORT}`) 
 }) 
+
+app.use(morgan('dev'))
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    store: MongoStore.create({
+        mongoUrl: process.env.MONGODB_URI
+    }),
+}))
+app.use(passUserToView)
+
