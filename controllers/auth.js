@@ -52,12 +52,16 @@ const signIn= async(req,res)=>{
         })
     })
 }
-
+const signOut = async(req,res)=>{
+    req.session.destory(()=>{
+        res.redirect('/')
+    })
+}
 module.exports={
     showsignUpForm,
     signUp,
     showSignInForm,
     signIn,
-    
+signOut,
 
 }
