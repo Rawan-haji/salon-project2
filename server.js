@@ -9,6 +9,12 @@ const morgan = require("morgan")
 const session = require('express-session')
 
 
+
+
+
+
+const authCtrl =require('./controllers/auth')
+
 // Mongoose connection 
 mongoose.connect(process.env.MONGODB_URI) 
 mongoose.connection.on('connected', () => { 
@@ -47,8 +53,9 @@ app.use(passUserToView)
 //     })
 // })
 
-app.get('/auth/sign-up')
-app.get('/auth/sign-in')
+app.get('/auth/sign-up',authCtrl.showsignUpForm)
+app.post('/auth/sign-up',authCtrl.signUp)
+// app.get('/auth/sign-in')
 
 
 
