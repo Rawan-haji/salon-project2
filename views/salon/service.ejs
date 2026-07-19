@@ -7,27 +7,56 @@
 </head>
 <body>
     <form action="/" method="POST" enctype="multipart/form-data">
+
+
         <section class="first-servicr">
             Hair Cut
             <input type="checkbox" name="HairCut"/>
+          <a href="/services/details/haircut">Details</a>
         </section>
+
+
 
         <section class="secound-servicr">
             Manicure
             <input type="checkbox" name="Manicure"/>
+           <a href="/services/details/manicure">Details</a>
+
         </section>
+
 
         <section class="theerd-service">
             Makeup
             <input type="checkbox" name="Makeup"/>
+          <a href="/services/details/makeup">Details</a>
+    
         </section>
+
+
+        
 
         <section class="foruth-service">
             hair styling
             <input type="checkbox" name="hairstyling"/>
+   <a href="/services/details/hairstyling">Details</a>
         </section>
+
+
         <button type="submit">Enter</button>
 
     </form>
+
+
+<% if (typeof selectedService !== 'undefined' && selectedService) { %>
+        <hr>
+        <h2>Service Details</h2>
+        <div>
+            <h3><%= selectedService.title %></h3>
+            <p><%= selectedService.description %></p>
+            <p><strong>Price:</strong> <%= selectedService.price %></p>
+            <p><strong>Duration:</strong> <%= selectedService.duration %></p>
+        </div>
+    <% } %>
+
 </body>
 </html>

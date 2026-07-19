@@ -57,6 +57,8 @@ res.render('home.ejs',{
    })
  })
 
+ 
+
 app.get('/auth/sign-up',authCtrl.showsignUpForm)
 app.post('/auth/sign-up',authCtrl.signUp)
 app.get('/auth/sign-in', authCtrl.showSignInForm)
@@ -66,6 +68,14 @@ app.delete('/auth/sign-out',authCtrl.signOut)
 
 app.get('/services', serCtrl.serve)
 app.post('/services',serCtrl.chooseService)
+
+app.get('/services/details/:serviceName', serCtrl.showDetails) 
+
+
+// app.get('/services/haircut', serCtrl.haircutDetails)
+// app.get('/services/manicure', serCtrl.manicureDetails)
+// app.get('/services/makeup', serCtrl.makeupDetails)
+// app.get('/services/hairstyling', serCtrl.hairstylingDetails)
 
 
 
