@@ -1,19 +1,27 @@
+const dns = require("node:dns");
+dns.setServers(["8.8.8.8", "1.1.1.1"])
+
 const mongoose = require('mongoose') 
 const express = require('express') 
 require('dotenv').config() 
 const methodOverride = require('method-override') 
 const path = require('path') 
 const app = express() 
-const PORT = 3700 
+
 const morgan = require("morgan")
 const session = require('express-session')
-
-
+const { MongoStore } = require('connect-mongo')
 
 
 
 
 const authCtrl =require('./controllers/auth')
+const serCtrl=require('./controllers/services')
+
+
+
+
+const port = process.env.PORT ? process.env.PORT : 3000 
 
 // Mongoose connection 
 mongoose.connect(process.env.MONGODB_URI) 
@@ -40,7 +48,7 @@ app.use(session({
         mongoUrl: process.env.MONGODB_URI
     }),
 }))
-app.use(passUserToView)
+// app.use(passUserToView)
 
 //to home page
 app.get('/',(req,res)=>{
@@ -54,6 +62,11 @@ app.post('/auth/sign-up',authCtrl.signUp)
 app.get('/auth/sign-in', authCtrl.showSignInForm)
 app.post('/auth/sign-in', authCtrl.signIn)
 app.delete('/auth/sign-out',authCtrl.signOut)
+
+
+app.get('/services', serCtrl.serve)
+app.post('/services',serCtrl.chooseService)
+
 
 
 app.listen(port, () => {

@@ -14,7 +14,7 @@ if(userInDatabase){
 let userData={}
 userData.username=req.body.username
 const hashedPassword=bcrypt.hashSync(req.body.password,10)
-userData.password.hashedPassword
+userData.password=hashedPassword
 
 const user = await User.create(userData)
 req.session.user={
@@ -47,13 +47,12 @@ const signIn= async(req,res)=>{
         _id:userInDatabase._id
     }
     req.session.save(()=>{
-        req.session.destory(()=>{
             res.redirect('/')
-        })
+    
     })
 }
 const signOut = async(req,res)=>{
-    req.session.destory(()=>{
+    req.session.destroy(()=>{
         res.redirect('/')
     })
 }
