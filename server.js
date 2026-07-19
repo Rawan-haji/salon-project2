@@ -55,7 +55,8 @@ app.use(passUserToView)
 
 app.get('/auth/sign-up',authCtrl.showsignUpForm)
 app.post('/auth/sign-up',authCtrl.signUp)
-// app.get('/auth/sign-in')
+app.get('/auth/sign-in', authCtrl)
+app.post('/auth/sign-in', authCtrl)
 
 
 

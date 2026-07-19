@@ -26,9 +26,38 @@ req.session.save(()=>{
 })
 }
 
+const showSignInForm=(req,res)=>{
+    res.render('auth/sign-in.ejs')
+}
+
+const signIn= async(req,res)=>{
+    const userInDatabase = await User.findOne({
+        username:req.body.username
+    })
+    if(!userInDatabase){
+        return res.send('User dose not exist')
+    }
+    const validPassword=bcrypt.compareSync(req.body.password, userInDatabase.password)
+    if(!validPassword){
+        return res.send('Login faild , please try agin')
+    }
+
+    req.session.user={
+        username:userInDatabase.username,
+        _id:userInDatabase._id
+    }
+    req.session.save(()=>{
+        req.session.destory(()=>{
+            res.redirect('/')
+        })
+    })
+}
+
 module.exports={
     showsignUpForm,
     signUp,
-
+    showSignInForm,
+    signIn,
+    
 
 }
