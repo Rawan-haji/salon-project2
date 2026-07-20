@@ -3,15 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>My Bookings</title>
 </head>
 <body>
-    allservies.forEach((item)=>{
-<a href="salon/<%= item._id>">
-    <li>
-        A salon in <%= item.home%>
-    </li>
-</a>
-    })
+<h1> All my booking</h1>
+<a href="/bookings/new">Create New Booking</a>
+<%if (allBookings.length ===0){%>
+    <p>No booking found</p>
+    <%} else{ %>
+        <ul>
+            <% allBookings.forEach((item)=>{%>
+                <li>
+                Services: <%= item.services%>
+                Address: 
+                Home<%=item.home%>
+                road <%=item.road%>
+                street <%%= item.street>
+                Date <%= item.date.toDateSteing%>
+                time
+                <%=item.time%>
+                Note <%=item.recommendation%>
+
+                <a href="/bookings/<%= item._id%>/edit">Edit</a>
+                <form action="/bookings/<%=item._id%>?_method=DELET" method="POST">
+<button type="submit">Delete</button>
+</form>
+                </li>
+            <%})%>
+        </ul>
+        <%}%>
+        <a href="/">Home</a>
 </body>
 </html>
