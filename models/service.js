@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
 const ServicesSchema = new mongoose.Schema({
-name:{
+title:{
     type:String,
     required:true,
 },
@@ -18,5 +18,11 @@ required:true,
 Duration:{
     type:String,
     required:true,
-}
+},
+
+
 })
+const Service= mongoose.model('Service',ServicesSchema)
+module.exports={
+Service
+}

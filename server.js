@@ -17,7 +17,7 @@ const { MongoStore } = require('connect-mongo')
 
 const authCtrl =require('./controllers/auth')
 const serCtrl=require('./controllers/services')
-
+const bookCtrl=require('./controllers/booking')
 
 
 
@@ -69,7 +69,10 @@ app.delete('/auth/sign-out',authCtrl.signOut)
 app.get('/services', serCtrl.serve)
 app.post('/services',serCtrl.chooseService)
 
-app.get('/services/details/:serviceName', serCtrl.showDetails) 
+app.get('/services/details/:serviceName', serCtrl.showDetails)
+
+app.post('/submit-booking',bookCtrl.createBooking)
+app.delete('/booking/:bookingId',bookCtrl.deleteServes)
 
 
 // app.get('/services/haircut', serCtrl.haircutDetails)
