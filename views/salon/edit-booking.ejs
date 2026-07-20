@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Booking</title>
+</head>
+<body>
+    <h1>Edit Booking</h1>
+    <form action="/bookings/<%= booking._id>?_method=PUT" method="POST">
+        <h3>Services:</h3>
+        <label>
+            <input type="checkbox" name="services" value="Hair Cut" <%= booking.services.includes('Hair Cut') ? 'checked' : '' %> /> Hair Cut
+        </label><br/>
+        <label>
+            <input type="checkbox" name="services" value="Manicure" <%= booking.services.includes('Manicure') ? 'checked' : '' %> /> Manicure
+        </label><br/>
+        <label>
+            <input type="checkbox" name="services" value="Makeup" <%= booking.services.includes('Makeup') ? 'checked' : '' %> /> Makeup
+        </label><br/>
+        <label>
+            <input type="checkbox" name="services" value="Hair Styling" <%= booking.services.includes('Hair Styling') ? 'checked' : '' %> /> Hair Styling
+        </label><br/>
+
+        <h3>Address & Time</h3>
+        <label>Home Number: <input type="text" name="home" value="<%= booking.home %>" required /></label><br/>
+        <label>Road: <input type="text" name="road" value="<%= booking.road %>" required /></label><br/>
+        <label>Street: <input type="text" name="street" value="<%= booking.street %>" required /></label><br/>
+        <label>Date: <input type="date" name="date" value="<%= booking.date.toISOString().split('T')[0] %>" required /></label><br/>
+        <label>Time: <input type="time" name="time" value="<%= booking.time %>" required /></label><br/>
+        <label>Special Recommendation:<br/>
+            <textarea name="recommendation" required><%= booking.recommendation %></textarea>
+        </label><br/><br/>
+
+        <button type="submit">Update Booking</button>
+    </form>
+
+    <br/>
+    <a href="/bookings">Cancel</a>
+
+    </form>
+    
+</body>
+</html>
