@@ -4,12 +4,16 @@ const bcrypt = require('bcrypt')
 const showsignUpForm=(req,res)=>{
     res.render('auth/sign-up.ejs')
 }
+
+
+
 const signUp=async(req,res)=>{
+  try{
     const userInDatabase=await User.findOne({
         username:req.body.username
     })
 if(userInDatabase){
-    return res.send('Username already taken')
+    return res.render('error.ejs', { msg: 'Username already taken.' })
 }
 let userData={}
 userData.username=req.body.username
@@ -22,21 +26,25 @@ req.session.user={
     _id: user._id
 }
 req.session.save(()=>{
-    res.redirect('/')
+ 
+    res.render('auth/sign-in.ejs')
 })
-}
+} catch(error){
+res.render('error.ejs', { msg: 'Something went wrong during sign up.'})
+}}
 
 const showSignInForm=(req,res)=>{
     res.render('auth/sign-in.ejs')
 }
 
 const signIn = async (req, res) => {
+  try{
   const userInDatabase = await User.findOne({
     username: req.body.username,
   });
 
   if (!userInDatabase) {
-    return res.send('User dose not exist');
+    return res.render('error.ejs', { msg: 'User does not exist.' });
   }
 
   const validPassword = bcrypt.compareSync(
@@ -45,7 +53,7 @@ const signIn = async (req, res) => {
   );
 
   if (!validPassword) {
-    return res.send('Login faild , please try agin');
+    return res.render('error.ejs', { msg: 'Login failed, please try again.' });
   }
 
   // Store user info in session
@@ -59,9 +67,11 @@ const signIn = async (req, res) => {
     if (req.session.selectedServices && req.session.selectedServices.length > 0) {
       return res.redirect('/bookings/new');
     }
-    res.redirect('/');
+    res.redirect('/dashboard');
   });
-};
+}catch(error){
+res.render('error.ejs', { msg: 'Something went wrong during sign in.' })
+}}
 
 
 const signOut = async(req,res)=>{

@@ -21,6 +21,7 @@ const passUserToView = require('./middleware/pass-user-to-view')
 const authCtrl =require('./controllers/auth')
 const serCtrl=require('./controllers/services')
 const bookingCtrl = require('./controllers/booking');
+const questionsCtrl = require('./controllers/questions')
 
 
 const port = process.env.PORT ? process.env.PORT : 3000 
@@ -30,7 +31,7 @@ mongoose.connect(process.env.MONGODB_URI)
 mongoose.connection.on("connected", () => {
   console.log(`Connected to MongoDB ${mongoose.connection.name}.`)
 })
-
+app.use(express.static('public'))
 // Middleware to parse URL-encoded data from forms
 app.use(express.urlencoded({ extended: false }))
 // Middleware for using HTTP verbs such as PUT or DELETE
@@ -45,7 +46,7 @@ app.use(session({
         mongoUrl: process.env.MONGODB_URI
     }),
 }))
-// app.use(passUserToView)
+app.use(passUserToView)
 
 
 
@@ -62,6 +63,12 @@ app.use(methodOverride('_method'))
 
 app.get('/services', serCtrl.serve)
 
+
+app.get('/dashboard',isSignedIn,async(req,res)=>{
+  res.render('dashboard.ejs',{
+    user: req.session.user,
+  })
+})
 
 //to home page
 app.get('/',(req,res)=>{
@@ -89,6 +96,12 @@ app.post('/bookings', isSignedIn, bookingCtrl.createBooking)
 app.get('/bookings/:bookingId/edit', bookingCtrl.editBooking)
 app.put('/bookings/:bookingId', isSignedIn, bookingCtrl.update)
 app.delete('/bookings/:bookingId', bookingCtrl.deleteBooking)
+
+app.get('/bookings/:bookingId', isSignedIn, bookingCtrl.showBooking)
+app.post('/bookings/:bookingId/questions',isSignedIn, questionsCtrl.create)
+app.post('/bookings/:bookingId/favorited-by/:userId', isSignedIn, bookingCtrl.favorite)
+app.delete('/bookings/:bookingId/favorited-by/:userId',isSignedIn, bookingCtrl.unfavorite)
+
 
 app.listen(port, () => {
   console.log(`The express app is ready on port ${port}!`)

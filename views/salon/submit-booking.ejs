@@ -10,6 +10,11 @@
 
   <form action="/bookings" method="POST">
     
+<% services.forEach(service => { %>
+  <input type="hidden" name="services" value="<%= service %>">
+<% }) %>
+
+
 
          <h3>1. Location Details:</h3>
          <div>
@@ -31,11 +36,6 @@
     <div>
       <label>Time: <input type="time" name="time" required /></label>
     </div>
-<!-- 
-    <h3>3. Recommendation / Notes:</h3>
-    <div>
-      <textarea name="recommendation"></textarea>
-    </div> -->
 
     <br>
     <button type="submit">Submit Booking</button>

@@ -3,28 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Show Page</title>
+    <title>Salon App</title>
 </head>
 <body>
-    <h1>Service</h1>
-    <p>Home: <%=foundBooking.home%></p>
-    <p>road  <%=foundBooking.road %></p>
-    <p>Street <%= foundBooking.street %></p>
-    <p>Date <%= foundBooking.date %></p>
-    <p> time <%= foundBooking.time %></p>
+    <h1>All My Bookings</h1>
 
-    <a href="/bookings/<%= foundBooking._id%>/edit">edit this service</a>
+  
+                    Services <%= foundBooking.services %><br/>
+                    Address: Home <%= foundBooking.home %>, Road <%= foundBooking.road %>, Street <%= foundBooking.street %><br/>
+                   
+                    Date:<%= foundBooking.date %><br/>
+                    
+                   Time: <%= foundBooking.time %><br/>
+                    Note: <%= foundBooking.recommendation %><br/>
 
-    <form action="/bookings/<%= foundBooking._id%>?_method=DELETE" method="POST">
-    </form>
-
-
-
+                    <a href="/bookings/<%= foundBooking._id %>/edit">Edit</a>
 
 
-    <section>
+                    <form action="/bookings/<%= foundBooking._id %>?_method=DELETE" method="POST">
+                        <button type="submit">Delete</button>
+                    </form>
+                </li>
+                <br/>
+
+                <section>
         <h2>Favorites</h2>
-        <% if(foundBooking.favoritedByUsers.length===0){%>
+        <% if(foundBooking.favoritedByUsers.length === 0){%>
             <p> No one Favorites this service yet</p>
 
         <%} else if (foundBooking.favoritedByUsers.length === 1) {%>
@@ -40,9 +44,8 @@
                     <button type="submit">❌</button>
 
                     </form>
-                      <%}%>
-                   <% else{%>
-                    <form action="/bookings/<%= foundBooking._id%>/favorited-by/<%=user._id%>?_method=DELETE" method="POST">
+                      <%} else{%>
+                    <form action="/bookings/<%= foundBooking._id %>/favorited-by/<%= user._id%>" method="POST">
                      <button type="submit">♥️</button>   
                     </form>
                     <%}%>
@@ -52,14 +55,17 @@
                     <h2>Questions about this service</h2>
                     <form action="/bookings/<%= foundBooking._id%>/questions" method="POST">
                         <textarea name="text" rows="4" required></textarea>
-                        <button type="button">Ask questions</button>
+                        <button type="submit">Ask questions</button>
                     </form>
                     <h3>Questions from the users</h3>
                     <%foundBooking.questions.forEach((item)=>{%>
                         <p><%=item.text%></p>
-                        <p> <%item.auth.username%></p>
+                        <p> <%item.user.username%></p> 
                     <%}) %>
 
                 </section>
+
+
+    <a href="/">Home</a>
 </body>
 </html>

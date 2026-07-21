@@ -6,7 +6,7 @@
     <title>Salon App</title>
 </head>
 <body>
-    <h1>All My Bookings</h1>
+    <h1>My Bookings</h1>
     <a href="/bookings/new">Create New Booking</a>
 
     <% if (allBookings.length === 0) { %>
@@ -16,19 +16,9 @@
             <% allBookings.forEach((item) => { %>
                 <li>
                     Services <%= item.services %><br/>
-                    Address: Home <%= item.home %>, Road <%= item.road %>, Street <%= item.street %><br/>
-                   
-                    Date:<%= item.date %><br/>
-                    
-                   Time: <%= item.time %><br/>
-                    Note: <%= item.recommendation %><br/>
 
-                    <a href="/bookings/<%= item._id %>/edit">Edit</a>
+                    <a href="/bookings/<%= item._id %>">View Details</a>
 
-
-                    <form action="/bookings/<%= item._id %>?_method=DELETE" method="POST">
-                        <button type="submit">Delete</button>
-                    </form>
                 </li>
                 <br/>
             <% }) %>

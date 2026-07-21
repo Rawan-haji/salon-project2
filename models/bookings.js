@@ -1,4 +1,20 @@
 const mongoose=require('mongoose')
+
+const questionSchema = new mongoose.Schema({
+    text:{
+        type:String,
+        required:true,
+    },
+    user:{
+     type:mongoose.Schema.Types.ObjectId,
+     ref: 'User',
+        required: true,
+  
+    }
+})
+
+
+
 const bookingSchema=new mongoose.Schema({
     home:{
     type:String,
@@ -29,8 +45,13 @@ const bookingSchema=new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true,
-    }
-    // timestamps:true
+    },
+    questions: [questionSchema],
+    favoritedByUsers: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+    }],
 
-})
+},{ timestamps: true } )
+
 module.exports=mongoose.model('Booking',bookingSchema)

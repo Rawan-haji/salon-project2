@@ -6,6 +6,10 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <h1> Welcom! to the salon app <%=user.username%></h1>
+    <form action="/auth/sign-out?_method=DELETE" method="POST">
+    <button type="submit">Sign Out</button>
+</form>
+ <a href="/services">View service</a> 
 </body>
 </html>

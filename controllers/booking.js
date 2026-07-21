@@ -1,3 +1,4 @@
+const bookings = require('../models/bookings');
 const Booking = require('../models/bookings');
 
 // show all bookings
@@ -8,6 +9,12 @@ const index = async (req, res) => {
 
 // Show the form
 const showBookingForm = async (req, res) => {
+let selectedServices = req.query.services
+  if (!selectedServices || selectedServices.length === 0) {
+    return res.render('error.ejs', { 
+      msg: 'Please select at least one service before proceeding to booking.' 
+    });
+  }
   res.render('salon/submit-booking.ejs', { 
     services: [] 
   });
@@ -26,15 +33,14 @@ const createBooking = async (req, res) => {
       street: body.street,
       date: body.date,
       time: body.time,
-      recommendation: body.recommendation,
-      services: [].concat(body.services || []),
+       services:body.services,
       user: req.session.user._id,
     };
 
     await Booking.create(bookingData);
     res.redirect('/bookings');
   } catch (error) {
-    console.error('Validation Error Details:', error.errors);
+    console.log('Validation Error Details:', error.errors);
     res.render('error.ejs', { msg: 'Please fill out all required form fields.' });
   }
 };
@@ -49,29 +55,39 @@ const editBooking = async (req, res) => {
 // updating the booking
 const update = async (req, res) => {
   let bookingData = {};
-  bookingData.home = req.body.home;
-  bookingData.road = req.body.road;
-  bookingData.street = req.body.street;
-  bookingData.date = req.body.date;
-  bookingData.time = req.body.time;
-  bookingData.recommendation = req.body.recommendation;
-  bookingData.services = [].concat(req.body.services || []);
+  bookingData.home = req.body.home
+  bookingData.road = req.body.road
+  bookingData.street = req.body.street
+  bookingData.date = req.body.date
+  bookingData.time = req.body.time
+  bookingData.services = req.body.services
   await Booking.findByIdAndUpdate(req.params.bookingId, bookingData);
-  res.redirect(`/bookings/${req.params.bookingId}`);
+  res.redirect(`/bookings/${req.params.bookingId}`)
 };
 
 // delete the booking
 const deleteBooking = async (req, res) => {
 try {
-   
-    await Booking.findByIdAndDelete(req.params.bookingId || req.params.id);
-    
-    res.redirect('/bookings');
-  } catch (error) {
-    console.error(error);
-    res.redirect('/bookings');
-  }
-};
+ await Booking.findByIdAndDelete(req.params.bookingId)
+ res.redirect('/bookings')  
+}catch(error){
+  console.log(error)
+  res.render('error.ejs', {msg:'Unable to delete'})
+}
+}
+
+const showBooking=async(req,res)=>{
+  const foundBooking = await Booking.findById(req.params.bookingId).populate('user')
+  console.log(foundBooking,"foundbooking=======");
+  
+  const userHasFavorited = foundBooking.favoritedByUsers.some((user) => {
+    return user.equals(req.session.user._id)
+  })
+  res.render('salon/show.ejs',{
+    foundBooking,
+    userHasFavorited,
+  })
+}
 
 
 
@@ -107,5 +123,6 @@ module.exports = {
   deleteBooking,
   favorite,
   unfavorite,
+  showBooking,
 };
 
