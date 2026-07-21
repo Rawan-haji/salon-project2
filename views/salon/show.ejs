@@ -7,23 +7,30 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <h1>All My Bookings</h1>
+    <div class="page-container">
+    <h1>My Booking</h1>
 
-  
+           <div class="content-card">
+            <div class="booking-item">
+            <div class="booking-details">
                     Services <%= foundBooking.services %><br/>
                     Address: Home <%= foundBooking.home %>, Road <%= foundBooking.road %>, Street <%= foundBooking.street %><br/>
                    
                     Date:<%= foundBooking.date %><br/>
                     
                    Time: <%= foundBooking.time %><br/>
-                    Note: <%= foundBooking.recommendation %><br/>
-
+                    <!-- Note: <%= foundBooking.recommendation %><br/> -->
+            </div>
+            <div class="booking-actions">
                     <a href="/bookings/<%= foundBooking._id %>/edit">Edit</a>
 
 
                     <form action="/bookings/<%= foundBooking._id %>?_method=DELETE" method="POST">
                         <button type="submit">Delete</button>
                     </form>
+            </div>
+            </div>
+           </div>
                 </li>
                 <br/>
 
@@ -53,17 +60,21 @@
                 </section>
 
                 <section>
+                    <div class="content-card">
                     <h2>Questions about this service</h2>
                     <form action="/bookings/<%= foundBooking._id%>/questions" method="POST">
                         <textarea name="text" rows="4" required></textarea>
                         <button type="submit">Ask questions</button>
                     </form>
+                    <div class="questions-list">
                     <h3>Questions from the users</h3>
                     <%foundBooking.questions.forEach((item)=>{%>
                         <p><%=item.text%></p>
                         <p> <%item.user.username%></p> 
                     <%}) %>
-
+                    </div>
+                    </div>
+                    
                 </section>
 
 

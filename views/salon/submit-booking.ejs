@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+  <div class="auth-card">
 <h1>Booking Details</h1>
 
   <form action="/bookings" method="POST">
@@ -17,29 +18,43 @@
 
 
 
+<div class="form-section">
          <h3>1. Location Details:</h3>
-         <div>
+
+
+
+
+       <div class="input-group">
          <label>Home Number: <input type="text" name="home" required /></label>
        </div>
 
-
-        <div>
+<div class="input-group">
       <label>Road Number: <input type="text" name="road" required /></label>
        </div>
-        <div>
+        
+       <div class="input-group">
       <label>Street: <input type="text" name="street" required /></label>
         </div>
+</div>
+
+
+<div class="form-section">
 
     <h3>2. Date & Time:</h3>
-    <div>
+
+
+    <div class="date-time-row">
       <label>Date: <input type="date" name="date" required /></label>
     </div>
-    <div>
+    <div class="date-time-row">
       <label>Time: <input type="time" name="time" required /></label>
     </div>
+</div>
 
     <br>
     <button type="submit">Submit Booking</button>
   </form>
+  </div>
+  
 </body>
 </html>

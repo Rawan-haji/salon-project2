@@ -7,28 +7,35 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+    <div class="auth-card">
     <h1>Edit Booking</h1>
 <form action="/bookings/<%= foundBooking._id %>?_method=PUT" method="POST">
-    
+    <div class="form-section">
+        <div class="input-group">
           Home Number:
           <input type="text" name="home" value="<%= foundBooking.home %>" required />
-
+        </div>
+        <div class="input-group">
            Road:
             <input type="text" name="road" value="<%= foundBooking.road %>" required />
-
+        </div>
+        <div class="input-group">
        Street:
          <input type="text" name="street" value="<%= foundBooking.street %>" required />
-
+        </div>
+    </div>
+    <div class="form-section">
        Date:
             <input type="date" name="date" value="<%= foundBooking.date %>" required />
 
        Time:
            <input type="time" name="time" value="<%= foundBooking.time %>" required />
 
-        <!-- Special Recommendation:
-        <textarea name="recommendation" required><%= foundBooking.recommendation %></textarea> -->
+    </div>
 
                  <button type="submit">Update Booking</button>
+                 
 </form>    
+    </div>
 </body>
 </html>

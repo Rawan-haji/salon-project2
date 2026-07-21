@@ -7,10 +7,14 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+    <div class="auth-card">
     <h1> Welcom! to the salon app <%=user.username%></h1>
     <form action="/auth/sign-out?_method=DELETE" method="POST">
-    <button type="submit">Sign Out</button>
+    <button type="submit" class="btn-secondary-button">Sign Out</button>
 </form>
- <a href="/services">View service</a> 
+<div class="action-bar">
+ <a href="/services" class="btn-primary">View service</a> 
+</div>
+    </div>
 </body>
 </html>

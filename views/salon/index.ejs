@@ -7,25 +7,40 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+    <div class="auth-card bookings-card">
     <h1>My Bookings</h1>
+    <div class="action-bar">
     <a href="/bookings/new">Create New Booking</a>
+    <a href="/">Home</a>
+    </div>
 
     <% if (allBookings.length === 0) { %>
+        <div class="empty-state">
         <p>No booking found</p>
+        </div>
     <% } else { %>
+        <div class="bookings-list">
         <ul>
             <% allBookings.forEach((item) => { %>
+                <div class="service-card booking-item">
+            <div class="service-info">
                 <li>
                     Services <%= item.services %><br/>
 
                     <a href="/bookings/<%= item._id %>">View Details</a>
+                 
 
                 </li>
+                
+   
+            </div>
+                </div>
                 <br/>
             <% }) %>
         </ul>
+        </div></div>
+
     <% } %>
 
-    <a href="/">Home</a>
 </body>
 </html>
