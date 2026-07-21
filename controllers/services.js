@@ -1,12 +1,11 @@
 
 const Service = require('./services')
 
-const serve=async(req, res)=>{
-    res.render('salon/service.ejs',{
-        selectedService: null
-    })
-    
-} 
+const serve = async (req, res) => {
+  res.render('salon/service.ejs', {
+    selectedService: null
+  });
+};
 
 const chooseService = async (req,res)=>{
     const selectService=req.body.service

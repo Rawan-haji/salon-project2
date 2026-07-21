@@ -30,27 +30,40 @@ const showSignInForm=(req,res)=>{
     res.render('auth/sign-in.ejs')
 }
 
-const signIn= async(req,res)=>{
-    const userInDatabase = await User.findOne({
-        username:req.body.username
-    })
-    if(!userInDatabase){
-        return res.send('User dose not exist')
-    }
-    const validPassword=bcrypt.compareSync(req.body.password, userInDatabase.password)
-    if(!validPassword){
-        return res.send('Login faild , please try agin')
-    }
+const signIn = async (req, res) => {
+  const userInDatabase = await User.findOne({
+    username: req.body.username,
+  });
 
-    req.session.user={
-        username:userInDatabase.username,
-        _id:userInDatabase._id
+  if (!userInDatabase) {
+    return res.send('User dose not exist');
+  }
+
+  const validPassword = bcrypt.compareSync(
+    req.body.password,
+    userInDatabase.password
+  );
+
+  if (!validPassword) {
+    return res.send('Login faild , please try agin');
+  }
+
+  // Store user info in session
+  req.session.user = {
+    username: userInDatabase.username,
+    _id: userInDatabase._id,
+  };
+
+  // Save session and redirect based on whether they picked services beforehand
+  req.session.save(() => {
+    if (req.session.selectedServices && req.session.selectedServices.length > 0) {
+      return res.redirect('/bookings/new');
     }
-    req.session.save(()=>{
-            res.redirect('/')
-    
-    })
-}
+    res.redirect('/');
+  });
+};
+
+
 const signOut = async(req,res)=>{
     req.session.destroy(()=>{
         res.redirect('/')

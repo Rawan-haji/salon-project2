@@ -6,32 +6,39 @@
     <title>submit-booking</title>
 </head>
 <body>
-  <h1> Booking a Salon Appointment</h1>
+<h1>Booking Details</h1>
+
   <form action="/bookings" method="POST">
-    <h3>Select Services : </h3>
-    home:
-    <input type="text" name="home" placeholder="home number"/>
-    <br/>
+    
 
-    road:
-    <input type="text" name="road" placeholder="road"/>
-    <br/>
+         <h3>1. Location Details:</h3>
+         <div>
+         <label>Home Number: <input type="text" name="home" required /></label>
+       </div>
 
-    date
-    <input type="text" name="date" placeholder="date"/>
-<br/>
-    time 
-    <input type="text" name="time" placeholder="add the time"/>
-<br/>
-    recommendation
-    <textarea name="recommendation" placeholder="special recommendation"></textarea>
-<br/>
-<button type="submit">Applay</button>
 
-  </form>  
+        <div>
+      <label>Road Number: <input type="text" name="road" required /></label>
+       </div>
+        <div>
+      <label>Street: <input type="text" name="street" required /></label>
+        </div>
 
-  <form action="">
-    <a href="/bookings">Back to All Bookings</a>
+    <h3>2. Date & Time:</h3>
+    <div>
+      <label>Date: <input type="date" name="date" required /></label>
+    </div>
+    <div>
+      <label>Time: <input type="time" name="time" required /></label>
+    </div>
+<!-- 
+    <h3>3. Recommendation / Notes:</h3>
+    <div>
+      <textarea name="recommendation"></textarea>
+    </div> -->
+
+    <br>
+    <button type="submit">Submit Booking</button>
   </form>
 </body>
 </html>

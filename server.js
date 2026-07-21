@@ -1,17 +1,20 @@
 const dns = require("node:dns");
 dns.setServers(["8.8.8.8", "1.1.1.1"])
 
-const mongoose = require('mongoose') 
-const express = require('express') 
-require('dotenv').config() 
-const methodOverride = require('method-override') 
-const path = require('path') 
-const app = express() 
+const dotenv = require("dotenv")
+dotenv.config()
+const express = require("express")
+const app = express()
+app.set('view engine', 'ejs');
 
+const mongoose = require("mongoose")
+const methodOverride = require("method-override")
 const morgan = require("morgan")
 const session = require('express-session')
 const { MongoStore } = require('connect-mongo')
-
+// const upload = require('./config/multer')
+const isSignedIn = require('./middleware/is-signed-in');
+const passUserToView = require('./middleware/pass-user-to-view')
 
 
 
@@ -20,8 +23,31 @@ const serCtrl=require('./controllers/services')
 const bookingCtrl = require('./controllers/booking');
 
 
-
 const port = process.env.PORT ? process.env.PORT : 3000 
+
+mongoose.connect(process.env.MONGODB_URI)
+
+mongoose.connection.on("connected", () => {
+  console.log(`Connected to MongoDB ${mongoose.connection.name}.`)
+})
+
+// Middleware to parse URL-encoded data from forms
+app.use(express.urlencoded({ extended: false }))
+// Middleware for using HTTP verbs such as PUT or DELETE
+app.use(methodOverride("_method"))
+// Morgan for logging HTTP requests
+app.use(morgan('dev'))
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    store: MongoStore.create({
+        mongoUrl: process.env.MONGODB_URI
+    }),
+}))
+// app.use(passUserToView)
+
+
 
 // Mongoose connection 
 mongoose.connect(process.env.MONGODB_URI) 
@@ -34,21 +60,8 @@ app.use(express.urlencoded({ extended: false }))
 
 app.use(methodOverride('_method'))
 
+app.get('/services', serCtrl.serve)
 
-// new code below this line (this is for css) 
-app.use(express.static(path.join(__dirname, 'public'))) 
-
-
-app.use(morgan('dev'))
-app.use(session({
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: true,
-    store: MongoStore.create({
-        mongoUrl: process.env.MONGODB_URI
-    }),
-}))
-// app.use(passUserToView)
 
 //to home page
 app.get('/',(req,res)=>{
@@ -57,7 +70,7 @@ res.render('home.ejs',{
    })
  })
 
- 
+
 
 app.get('/auth/sign-up',authCtrl.showsignUpForm)
 app.post('/auth/sign-up',authCtrl.signUp)
@@ -68,16 +81,14 @@ app.delete('/auth/sign-out',authCtrl.signOut)
 
 app.get('/services', serCtrl.serve)
 app.post('/services',serCtrl.chooseService)
+app.get('/services/:serviceName', serCtrl.showDetails);
 
-app.get('/services/details/:serviceName', serCtrl.showDetails)
-
-app.get('/bookings', bookingCtrl.index);
-app.get('/bookings/new', bookingCtrl.showBookingForm);
-app.post('/bookings', bookingCtrl.createBooking);
-app.get('/bookings/:bookingId/edit', bookingCtrl.editBooking);
-app.put('/bookings/:bookingId', bookingCtrl.update);
+app.get('/bookings', isSignedIn, bookingCtrl.index)
+app.get('/bookings/new', isSignedIn, bookingCtrl.showBookingForm)
+app.post('/bookings', isSignedIn, bookingCtrl.createBooking)
+app.get('/bookings/:bookingId/edit', bookingCtrl.editBooking)
+app.put('/bookings/:bookingId', isSignedIn, bookingCtrl.update)
 app.delete('/bookings/:bookingId', bookingCtrl.deleteBooking)
-
 
 app.listen(port, () => {
   console.log(`The express app is ready on port ${port}!`)

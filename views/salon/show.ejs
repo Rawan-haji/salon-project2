@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show Page</title>
+</head>
+<body>
+    <h1>Service</h1>
+    <p>Home: <%=foundBooking.home%></p>
+    <p>road  <%=foundBooking.road %></p>
+    <p>Street <%= foundBooking.street %></p>
+    <p>Date <%= foundBooking.date %></p>
+    <p> time <%= foundBooking.time %></p>
+
+    <a href="/bookings/<%= foundBooking._id%>/edit">edit this service</a>
+
+    <form action="/bookings/<%= foundBooking._id%>?_method=DELETE" method="POST">
+    </form>
+
+
+
+
+
+    <section>
+        <h2>Favorites</h2>
+        <% if(foundBooking.favoritedByUsers.length===0){%>
+            <p> No one Favorites this service yet</p>
+
+        <%} else if (foundBooking.favoritedByUsers.length === 1) {%>
+            <p>Favorites by <%=foundBooking.favoritedByUsers.length%> person</p>
+            <%} else{ %>
+                <p>Favorites by <%=foundBooking.favoritedByUsers.length%> people</p>
+                <%}%>
+
+
+
+                <%if(userHasFavorited){%>
+                    <form action="/bookings/<%= foundBooking._id%>/favorited-by/<%=user._id%>?_method=DELETE" method="POST">
+                    <button type="submit">❌</button>
+
+                    </form>
+                      <%}%>
+                   <% else{%>
+                    <form action="/bookings/<%= foundBooking._id%>/favorited-by/<%=user._id%>?_method=DELETE" method="POST">
+                     <button type="submit">♥️</button>   
+                    </form>
+                    <%}%>
+                </section>
+
+                <section>
+                    <h2>Questions about this service</h2>
+                    <form action="/bookings/<%= foundBooking._id%>/questions" method="POST">
+                        <textarea name="text" rows="4" required></textarea>
+                        <button type="button">Ask questions</button>
+                    </form>
+                    <h3>Questions from the users</h3>
+                    <%foundBooking.questions.forEach((item)=>{%>
+                        <p><%=item.text%></p>
+                        <p> <%item.auth.username%></p>
+                    <%}) %>
+
+                </section>
+</body>
+</html>

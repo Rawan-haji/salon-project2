@@ -7,27 +7,38 @@ const index = async (req, res) => {
 };
 
 // Show the form
-const showBookingForm = (req, res) => {
-  res.render('salon/submit-booking.ejs', { booking: null });
+const showBookingForm = async (req, res) => {
+  res.render('salon/submit-booking.ejs', { 
+    services: [] 
+  });
 };
+
+
 
 //Create booking
 const createBooking = async (req, res) => {
-  const selectedServices = [].concat(req.body.services || []);
-  const bookData = {
-    home: req.body.home,
-    road: req.body.road,
-    street: req.body.street,
-    date: req.body.date,
-    time: req.body.time,
-    recommendation: req.body.recommendation,
-    services: selectedServices,
-    user: req.session.user._id,
-  };
+  try {
+    const body = req.body || {};
 
-  await Booking.create(bookData);
-  res.redirect('/bookings');
+    const bookingData = {
+      home: body.home,
+      road: body.road,
+      street: body.street,
+      date: body.date,
+      time: body.time,
+      recommendation: body.recommendation,
+      services: [].concat(body.services || []),
+      user: req.session.user._id,
+    };
+
+    await Booking.create(bookingData);
+    res.redirect('/bookings');
+  } catch (error) {
+    console.error('Validation Error Details:', error.errors);
+    res.render('error.ejs', { msg: 'Please fill out all required form fields.' });
+  }
 };
+
 
 // editing form
 const editBooking = async (req, res) => {
@@ -51,9 +62,25 @@ const update = async (req, res) => {
 
 // delete the booking
 const deleteBooking = async (req, res) => {
-  await Booking.findByIdAndDelete(req.params.bookingId);
-  res.redirect('/bookings');
+try {
+   
+    await Booking.findByIdAndDelete(req.params.bookingId || req.params.id);
+    
+    res.redirect('/bookings');
+  } catch (error) {
+    console.error(error);
+    res.redirect('/bookings');
+  }
 };
+
+
+
+
+
+
+
+
+
 
 // Favorite
 const favorite = async (req, res) => {

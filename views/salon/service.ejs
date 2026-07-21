@@ -3,54 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>service</title>
+    <title>Book service</title>
 </head>
 <body>
-    <form action="/" method="POST" enctype="multipart/form-data">
+<h1>Select Services</h1>
 
-        <section class="first-servicr">
-            Hair Cut
-            <input type="checkbox" name="HairCut"/>
-          <a href="/services/details/haircut">Details</a>
-        </section>
+  <form action="/bookings/new" method="GET">
 
+      Hair Cut
+    <input type="checkbox" name="services" value="Hair Cut" /> 
+     
+       <a href="/services/haircut">View Details</a>
+<br/>
 
-
-        <section class="secound-servicr">
-            Manicure
-            <input type="checkbox" name="Manicure"/>
-           <a href="/services/details/manicure">Details</a>
-        </section>
-
-
-        <section class="theerd-service">
-            Makeup
-            <input type="checkbox" name="Makeup"/>
-          <a href="/services/details/makeup">Details</a>
+   Makeup
+    <input type="checkbox" name="services" value="Makeup" /> 
     
-        </section>
+      <a href="/services/makeup">View Details</a>
+<br/>
+        Hair Style
+        <input type="checkbox" name="services" value="Hair Style" /> 
+   
+     <a href="/services/hairstyling">View Details</a>
+<br/>
+             Manicure
+            <input type="checkbox" name="services" value="Manicure" /> 
+   
+         <a href="/services/manicure">View Details</a>
 
-        <section class="foruth-service">
-            hair styling
-            <input type="checkbox" name="hairstyling"/>
-   <a href="/services/details/hairstyling">Details</a>
-        </section>
+    <br/>
+    <br/>
+    <button type="submit">Continue to Booking Details</button>
+  </form>
 
-        <button type="submit">Enter</button>
-
-    </form>
-
-
-<% if (typeof selectedService !== 'undefined' && selectedService) { %>
-        <hr>
-        <h2>Service Details</h2>
-        <div>
-            <h3><%= selectedService.title %></h3>
-            <p><%= selectedService.description %></p>
-            <p><strong>Price:</strong> <%= selectedService.price %></p>
-            <p><strong>Duration:</strong> <%= selectedService.duration %></p>
-        </div>
-    <% } %>
+  <% if (selectedService) { %>
+    <hr/>
+    <div class="service-details">
+        <h2><%= selectedService.title %> Details</h2>
+        <p>Description:<%= selectedService.description %></p>
+        <p>Price: <%= selectedService.price %></p>
+        <p>Duration: <%= selectedService.duration %></p>
+    </div>
+<% } %>
 
 </body>
 </html>
