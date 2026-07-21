@@ -4,18 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up</title>
+     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+    <div class="auth-card">
     <h1>Create a new acccount</h1>
-    <form action="/auth/sign-up" method="POST">
-        Username
-        <input type="text" name="username"/>
-        Password
-        <input type="Password" name="password"/>
-        Confirm Password
-        <input type="Password" name="confirmPassword"/>
-        <button type="submit">Sign Up</button>
+    <form  class="sign-up-form" action="/auth/sign-up" method="POST">
+        <div class="input-group">
+        <label for="username">Username</label>
+        <input id="username" type="text" name="username"/>
+        </div>
 
+        <div class="input-group">
+        <label for="password">Password</label>
+        <input  id="password" type="Password" name="password"/>
+
+
+        <label for="confirmPassword">Confirm Password</label>
+        <input  id="confirmPassword" type="Password" name="confirmPassword"/>
+        </div>
+        <button type="submit">Sign Up</button>
+        </div>
     </form>
+    </div>
 </body>
 </html>
