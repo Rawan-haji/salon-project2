@@ -7,31 +7,43 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-<h1>Select Services</h1>
-
+<h1 class="h1-select">Select Services</h1>
+<div class="auth-card">
   <form action="/bookings/new" method="GET">
 
-      Hair Cut
-    <input type="checkbox" name="services" value="Hair Cut" /> 
-     
+
+
+<div class="service-card">
+
+<div class="service-info">
+      <label for="haircut">Hair Cut</label>
+      <input type="checkbox" name="services" value="Hair Cut" /> 
        <a href="/services/haircut">View Details</a>
+</div>
 <br/>
-
-   Makeup
+<div class="service-info">
+   <label for="makeup">Makeup</label>
     <input type="checkbox" name="services" value="Makeup" /> 
-    
       <a href="/services/makeup">View Details</a>
+</div>
 <br/>
-        Hair Style
-        <input type="checkbox" name="services" value="Hair Style" /> 
-   
-     <a href="/services/hairstyling">View Details</a>
-<br/>
-             Manicure
-            <input type="checkbox" name="services" value="Manicure" /> 
-   
-         <a href="/services/manicure">View Details</a>
 
+<div class="service-info">
+       <label for="hairstyle">Hair Style</label>
+        <input type="checkbox" name="services" value="Hair Style" /> 
+     <a href="/services/hairstyling">View Details</a>
+</div>
+<br/>
+
+<div class="service-info">
+             <label for="manicure">Manicure</label>
+            
+            <input type="checkbox" name="services" value="Manicure" /> 
+
+             <a href="/services/manicure">View Details</a>
+</div>
+
+</div>
     <br/>
     <br/>
     <button type="submit">Continue to Booking Details</button>
@@ -44,6 +56,7 @@
         <p>Description:<%= selectedService.description %></p>
         <p>Price: <%= selectedService.price %></p>
         <p>Duration: <%= selectedService.duration %></p>
+    </div>
     </div>
 <% } %>
 
