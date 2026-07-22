@@ -56,13 +56,13 @@ const signIn = async (req, res) => {
     return res.render('error.ejs', { msg: 'Login failed, please try again.' });
   }
 
-  // Store user info in session
+
   req.session.user = {
     username: userInDatabase.username,
     _id: userInDatabase._id,
   };
 
-  // Save session and redirect based on whether they picked services beforehand
+  
   req.session.save(() => {
     if (req.session.selectedServices && req.session.selectedServices.length > 0) {
       return res.redirect('/bookings/new');

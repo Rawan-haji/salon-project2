@@ -95,12 +95,6 @@ const showBooking=async(req,res)=>{
 
 
 
-
-
-
-
-
-// Favorite
 const favorite = async (req, res) => {
   await Booking.findByIdAndUpdate(req.params.bookingId, {
     $push: { favoritedByUsers: req.params.userId },
@@ -108,7 +102,7 @@ const favorite = async (req, res) => {
   res.redirect(`/bookings/${req.params.bookingId}`);
 };
 
-// Unfavorite
+
 const unfavorite = async (req, res) => {
   await Booking.findByIdAndUpdate(req.params.bookingId, {
     $pull: { favoritedByUsers: req.params.userId },
