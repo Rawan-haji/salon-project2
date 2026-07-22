@@ -29,3 +29,10 @@ This is a salon online booking website that allows user to explore salon service
 - Mongoose
 
 ## User Stories
+- As customer I need to create an account so that i can book salon services
+- As a customer I want to log in securely to access my account
+- As a customer I want to browse avilable salon services so that i can choose the one I need
+- As a customer I want to view a detailed information about each service, include the price and duration
+- As a customer I want to book an appointment for select service
+- As a customer I want to edit and delete the booking
+
