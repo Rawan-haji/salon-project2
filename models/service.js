@@ -5,17 +5,19 @@ title:{
     type:String,
     required:true,
 },
-
+serviceName:{
+    type:String,
+},
 price:{
     type:Number,
     required:true,
-    min=0,
+    
 },
-Description:{
+description:{
 type:String,
 required:true,
 },
-Duration:{
+duration:{
     type:String,
     required:true,
 },
@@ -23,6 +25,4 @@ Duration:{
 
 })
 const Service= mongoose.model('Service',ServicesSchema)
-module.exports={
-Service
-}
+module.exports= Service

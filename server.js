@@ -92,6 +92,13 @@ app.get('/services/:serviceName', serCtrl.showDetails);
 
 app.get('/bookings', isSignedIn, bookingCtrl.index)
 app.get('/bookings/new', isSignedIn, bookingCtrl.showBookingForm)
+
+
+
+
+
+
+
 app.post('/bookings', isSignedIn, bookingCtrl.createBooking)
 app.get('/bookings/:bookingId/edit', bookingCtrl.editBooking)
 app.put('/bookings/:bookingId', isSignedIn, bookingCtrl.update)

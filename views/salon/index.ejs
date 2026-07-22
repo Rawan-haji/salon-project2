@@ -10,9 +10,9 @@
     <div class="auth-card bookings-card">
     <h1>My Bookings</h1>
     <div class="action-bar">
-    <a href="/bookings/new">Create New Booking</a>
     <a href="/">Home</a>
     </div>
+<a href="/services">Create New Booking</a>
 
     <% if (allBookings.length === 0) { %>
         <div class="empty-state">
@@ -25,6 +25,7 @@
                 <div class="service-card booking-item">
             <div class="service-info">
                 <li>
+                     <%= item.title %><br/>
                     Services <%= item.services %><br/>
 
                     <a href="/bookings/<%= item._id %>">View Details</a>

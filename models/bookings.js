@@ -47,6 +47,7 @@ const bookingSchema=new mongoose.Schema({
         required: true,
     },
     questions: [questionSchema],
+    services: [String],
     favoritedByUsers: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',

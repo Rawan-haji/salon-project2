@@ -9,6 +9,7 @@ const index = async (req, res) => {
 
 // Show the form
 const showBookingForm = async (req, res) => {
+  console.log(req.query.services)
 let selectedServices = req.query.services
   if (!selectedServices || selectedServices.length === 0) {
     return res.render('error.ejs', { 
@@ -16,7 +17,7 @@ let selectedServices = req.query.services
     });
   }
   res.render('salon/submit-booking.ejs', { 
-    services: [] 
+    services: selectedServices
   });
 };
 
@@ -24,6 +25,7 @@ let selectedServices = req.query.services
 
 //Create booking
 const createBooking = async (req, res) => {
+  console.log(req.body)
   try {
     const body = req.body || {};
 
