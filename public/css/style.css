@@ -314,11 +314,6 @@ textarea {
   margin-bottom: 20px;
 }
 
-.form-footer {
-  text-align: center;
-  margin-top: 10px;
-}
-
 .btn-secondary-button {
   width: 100%;
   padding: 14px;
@@ -386,4 +381,9 @@ textarea {
   font-size: 0.95rem;
   font-weight: 600;
 
+}
+
+.form-footer {
+  text-align: center;
+  margin-top: 10px;
 }

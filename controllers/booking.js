@@ -78,7 +78,7 @@ try {
 
 const showBooking=async(req,res)=>{
   const foundBooking = await Booking.findById(req.params.bookingId).populate('user')
-  console.log(foundBooking,"foundbooking=======");
+  // console.log(foundBooking,"foundbooking=======");
   
   const userHasFavorited = foundBooking.favoritedByUsers.some((user) => {
     return user.equals(req.session.user._id)
