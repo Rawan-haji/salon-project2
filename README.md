@@ -39,3 +39,9 @@ This is a salon online booking website that allows user to explore salon service
 - As a customer I want to edit and delete the booking
 
 ## Getting Started
+- Clone the repositly = git clone (repository-url) 
+- Navigate to the project = cd project-name
+- Install dependenvies = npm install
+- Create a .env file
+- Start the drvelopment server = npm run dev
+- Visit = http:/localhost:3000
