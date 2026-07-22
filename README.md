@@ -16,3 +16,16 @@ This is a salon online booking website that allows user to explore salon service
 - Email appointment reminders
 - Online payment
 - Dark mode
+
+## Screenshots
+
+## Technologies Used
+- HTML
+- CSS
+- JavaScript
+- Node.js
+- EJS
+- MongoDB
+- Mongoose
+
+## User Stories
