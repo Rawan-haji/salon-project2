@@ -11,12 +11,11 @@
 <h1>Booking Details</h1>
 
   <form action="/bookings" method="POST">
-    
-<% services.forEach(service => { %>
-  <input type="hidden" name="services" value="<%= service %>">
-<% }) %>
 
-
+      <% let servicesArray = [services] %>
+      <% servicesArray.forEach(service => { %>
+        <input type="hidden" name="services" value="<%= service %>">
+        <% }) %>
 
 <div class="form-section">
          <h3>1. Location Details:</h3>
@@ -27,6 +26,7 @@
        <div class="input-group">
          <label>Home Number: <input type="text" name="home" required /></label>
        </div>
+
 
 <div class="input-group">
       <label>Road Number: <input type="text" name="road" required /></label>
