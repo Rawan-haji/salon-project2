@@ -18,7 +18,7 @@ This is a salon online booking website that allows user to explore salon service
 - Dark mode
 
 ## Screenshots
-![alt text](image-1.png)
+![alt text](image.png)
 
 ## Technologies Used
 - HTML
