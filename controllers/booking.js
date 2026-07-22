@@ -1,13 +1,13 @@
 const bookings = require('../models/bookings');
 const Booking = require('../models/bookings');
 
-// show all bookings
+
 const index = async (req, res) => {
   const allBookings = await Booking.find({ user: req.session.user._id });
   res.render('salon/index.ejs', { allBookings });
 };
 
-// Show the form
+
 const showBookingForm = async (req, res) => {
   console.log(req.query.services)
 let selectedServices = req.query.services
@@ -23,7 +23,7 @@ let selectedServices = req.query.services
 
 
 
-//Create booking
+
 const createBooking = async (req, res) => {
   console.log(req.body)
   try {
@@ -48,13 +48,13 @@ const createBooking = async (req, res) => {
 };
 
 
-// editing form
+
 const editBooking = async (req, res) => {
   const foundBooking = await Booking.findById(req.params.bookingId);
   res.render('salon/edit-booking.ejs', { foundBooking });
 };
 
-// updating the booking
+
 const update = async (req, res) => {
   let bookingData = {};
   bookingData.home = req.body.home
@@ -67,7 +67,7 @@ const update = async (req, res) => {
   res.redirect(`/bookings/${req.params.bookingId}`)
 };
 
-// delete the booking
+
 const deleteBooking = async (req, res) => {
 try {
  await Booking.findByIdAndDelete(req.params.bookingId)
@@ -80,7 +80,7 @@ try {
 
 const showBooking=async(req,res)=>{
   const foundBooking = await Booking.findById(req.params.bookingId).populate('user')
-  // console.log(foundBooking,"foundbooking=======");
+  
   
   const userHasFavorited = foundBooking.favoritedByUsers.some((user) => {
     return user.equals(req.session.user._id)
